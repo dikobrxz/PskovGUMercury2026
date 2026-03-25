@@ -2715,7 +2715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0d3b497b0ee67a447a69c622bf3f1571, type: 3}
       propertyPath: m_Name
-      value: Satellite
+      value: SM_MER_Intro_Satellite
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
