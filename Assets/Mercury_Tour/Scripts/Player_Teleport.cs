@@ -1,35 +1,50 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+//using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Player_Teleport : MonoBehaviour
 {
-    private CharacterController _controller;
-    [Header("Settings")]
+    [SerializeField] private Image _fade;
+    [SerializeField] public float _duration;
+    [Header("Settings telepor points")]
     [SerializeField] private Transform _SpawnPointMercury;
     [SerializeField] private Transform _SpawnPointShip;
+
+    public static Player_Teleport Instance;
+    private CharacterController _controller;
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    void Start()
+    {
+        _fade.canvasRenderer.SetAlpha(0.0f);
+    }
+
     public void Teleport()
     {
-        if ((int)Manager_Stages.Instance._currentStage < 6)
+        if ((int)Manager_Stages.Instance._currentStage < 7)
         {
-            DoTeleport(_SpawnPointMercury);
+            StartCoroutine(DoTeleport(_SpawnPointMercury));
             Debug.Log("Телепортация на Меркурий завершена!");
         }
         else
         {    
-            DoTeleport(_SpawnPointShip);
+            StartCoroutine(DoTeleport(_SpawnPointShip));
+            Manager_Stages.Instance._quiz.SetActive(true);
             Debug.Log("Телепортация на корабль завершена!");
         }
     }
 
-    private void DoTeleport(Transform point)
+    public IEnumerator DoTeleport(Transform point)
     {
         Debug.Log("Кнопка нажата!");
-        if ( point == null)
-        {
-            Debug.LogError("Не назначена точка телепортации!");
-            return;
-        }
+
+        _fade.CrossFadeAlpha(1.0f, _duration, false);
+        yield return new WaitForSeconds(_duration);
 
         _controller = GetComponent<CharacterController>();
         _controller.enabled = false;
@@ -38,6 +53,11 @@ public class Player_Teleport : MonoBehaviour
         transform.rotation = point.rotation;
 
         _controller.enabled = true;
+
+        yield return new WaitForSeconds(_duration);
+
+        _fade.CrossFadeAlpha(0.0f, _duration, false);
+        yield return new WaitForSeconds(_duration);
 
         Debug.Log("Телепортация завершена!");
     }

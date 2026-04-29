@@ -1,8 +1,5 @@
 using UnityEngine;
-using System;
-using System.Collections.Generic;
-using UnityEngine.Android;
-using NUnit.Framework.Internal.Commands;
+using System.Collections;
 
 public class Manager_Stages : MonoBehaviour
 {
@@ -14,6 +11,7 @@ public class Manager_Stages : MonoBehaviour
 
     [SerializeField] public GameObject _introContainer;
     [SerializeField] public GameObject _mercuryContainer;
+    [SerializeField] public GameObject _quiz;
     //[Header("Script")] private MonoBehaviour _managerPanelScript;
 
     private void Awake()
@@ -21,21 +19,49 @@ public class Manager_Stages : MonoBehaviour
         Instance = this;
     }
 
+    void Start()
+    {
+        //_mercuryContainer.SetActive(false);
+        _quiz.SetActive(false);
+    }
+
     public void ChangeStage(int _stageIndex)
     {
-        _currentStage = (Stages)_stageIndex;
+        if (_stageIndex < 8)
+        {
+            _currentStage = (Stages)_stageIndex;
 
-        _introContainer.SetActive(_stageIndex == 0);
-        _mercuryContainer.SetActive(_stageIndex >= 1);
+            _introContainer.SetActive(_stageIndex == 0);
+            _mercuryContainer.SetActive(_stageIndex >= 1);
 
-        OnStageChanged?.Invoke();
+            OnStageChanged?.Invoke();
+        }
     }
 
     public void NextStage()
     {
-        _currentStage = (Stages)((int)++_currentStage);
+        if ((int)_currentStage == 0)
+        {
+            //_mercuryContainer.SetActive(true);
+            Player_Teleport.Instance.Teleport();
+            //_introContainer.SetActive(false);
+        }
+
+        if ((int)_currentStage == 6)
+        {
+            //_introContainer.SetActive(true);
+            Player_Teleport.Instance.Teleport();
+            //_mercuryContainer.SetActive(false);
+        }
+
+        if ((int)_currentStage < 7)
+        {
+            _currentStage = (Stages)((int)++_currentStage);
         
-        OnStageChanged?.Invoke();
+            Manager_Audio.Instance.PlayStageVoice();
+
+            OnStageChanged?.Invoke();
+        }
     }
 
     public int GetIndexCurrentStage()

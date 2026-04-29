@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6310912617014394424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5247103548212486672}
+  - component: {fileID: 246776276469893724}
+  m_Layer: 0
+  m_Name: SM_MER_Manager_Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5247103548212486672
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310912617014394424}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &246776276469893724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6310912617014394424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a019597a820c043ba9c96cb3736dd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Manager_Audio
+  _voiceSource: {fileID: 0}
+  _defaultDelay: 2
+  _stageVoices:
+  - {fileID: 8300000, guid: 2e111cf34db6bf146998932399e5708b, type: 3}
+  - {fileID: 8300000, guid: aeb3f1022d988ac468b571ff87038422, type: 3}
+  - {fileID: 8300000, guid: 7c9431657b7d19e4896fb8486e324624, type: 3}
+  - {fileID: 8300000, guid: f8b8ba8896b4d0b458805bb1d37c2b37, type: 3}
+  - {fileID: 8300000, guid: 79d98c22624360e4ba927e8a28d00dae, type: 3}
+  - {fileID: 8300000, guid: 5447399e305dc57489ec56cafa07e8e3, type: 3}
+  - {fileID: 8300000, guid: fae8f04fbd20d2048afcf5495d1af84c, type: 3}
+  - {fileID: 8300000, guid: 5d22683545a4d2541b7ac5165033803b, type: 3}
+  _ojectSpeech: {fileID: 0}
