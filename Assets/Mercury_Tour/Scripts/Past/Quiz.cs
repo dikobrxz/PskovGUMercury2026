@@ -1,9 +1,9 @@
-/*using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
     [System.Serializable]
-    public class QuestionData {
+    public class QuestionData2 {
     public string questionText;
     public string[] answers; // Правильный ответ всегда под индексом 0
     }
@@ -64,4 +64,3 @@ public class Quiz : MonoBehaviour
         }
     }
 }
-*/

@@ -29,7 +29,12 @@ public class Manager_UI : MonoBehaviour
 
         if (_currentStage == 5)
         {
-            _stage.text += "\nКоординаты: " + Manager_Panel._correctAnswer;
+            _coordinates.text += "Координаты: " + Manager_Panel._correctAnswer;
+        }
+
+        if (_currentStage == 6)
+        {
+            _coordinates.text = "";
         }
     }
 }

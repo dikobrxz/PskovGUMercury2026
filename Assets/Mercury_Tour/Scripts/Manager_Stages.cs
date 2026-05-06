@@ -1,18 +1,21 @@
 using UnityEngine;
 using System.Collections;
+using System.Net;
 
 public class Manager_Stages : MonoBehaviour
 {
+    [SerializeField] public GameObject _introContainer;
+    [SerializeField] public GameObject _mercuryContainer;
+    [SerializeField] public GameObject _quiz;
+
+    [Header("Триггеры этапов")]
+    [SerializeField] private GameObject[] stageTriggers;
+
     public static Manager_Stages Instance;
     public delegate void StageChanged();
     public static event StageChanged OnStageChanged;
     public enum Stages {Start, Exploration, CraterQuest, SatelliteFound, PasswordStage, CoordinatesStage, Rescue, End}
     public Stages _currentStage;
-
-    [SerializeField] public GameObject _introContainer;
-    [SerializeField] public GameObject _mercuryContainer;
-    [SerializeField] public GameObject _quiz;
-    //[Header("Script")] private MonoBehaviour _managerPanelScript;
 
     private void Awake()
     {
@@ -21,7 +24,14 @@ public class Manager_Stages : MonoBehaviour
 
     void Start()
     {
-        //_mercuryContainer.SetActive(false);
+        for (int i = 0; i < stageTriggers.Length; i++)
+        {
+            int index = i;
+            var proxy = stageTriggers[i].GetComponent<StageTriggerProxy>();
+
+            proxy.OnPlayerEnter = () => {OnTriggerReached(index);};
+        }
+
         _quiz.SetActive(false);
     }
 
@@ -67,5 +77,12 @@ public class Manager_Stages : MonoBehaviour
     public int GetIndexCurrentStage()
     {
         return (int)_currentStage;
+    }
+
+    private void OnTriggerReached(int index)
+    {
+        NextStage();
+        stageTriggers[index].SetActive(false);
+        Debug.Log($"Триггер {index} сработал и отключен.");
     }
 }

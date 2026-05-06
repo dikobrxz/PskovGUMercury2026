@@ -26,7 +26,7 @@ public class Player_Teleport : MonoBehaviour
 
     public void Teleport()
     {
-        if ((int)Manager_Stages.Instance._currentStage < 7)
+        if ((int)Manager_Stages.Instance._currentStage < 6)
         {
             StartCoroutine(DoTeleport(_SpawnPointMercury));
             Debug.Log("Телепортация на Меркурий завершена!");
