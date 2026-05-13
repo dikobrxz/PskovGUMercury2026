@@ -1,12 +1,15 @@
 using UnityEngine;
 using System.Collections;
 using System.Net;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class Manager_Stages : MonoBehaviour
 {
     [SerializeField] public GameObject _introContainer;
     [SerializeField] public GameObject _mercuryContainer;
     [SerializeField] public GameObject _quiz;
+    [SerializeField] public GameObject _screen;
+    [SerializeField] public XRBaseInteractable _button;
 
     [Header("Триггеры этапов")]
     [SerializeField] private GameObject[] stageTriggers;
@@ -14,7 +17,7 @@ public class Manager_Stages : MonoBehaviour
     public static Manager_Stages Instance;
     public delegate void StageChanged();
     public static event StageChanged OnStageChanged;
-    public enum Stages {Start, Exploration, CraterQuest, SatelliteFound, PasswordStage, CoordinatesStage, Rescue, End}
+    public enum Stages {Start, Exploration, CraterQuest, SatelliteFound, PasswordStage, CoordinatesStage, Rescue, Quiz, End}
     public Stages _currentStage;
 
     private void Awake()
@@ -33,11 +36,13 @@ public class Manager_Stages : MonoBehaviour
         }
 
         _quiz.SetActive(false);
+        _button.enabled = false;
+        _screen.SetActive(false);
     }
 
     public void ChangeStage(int _stageIndex)
     {
-        if (_stageIndex < 8)
+        if (_stageIndex < 9)
         {
             _currentStage = (Stages)_stageIndex;
 
@@ -50,21 +55,15 @@ public class Manager_Stages : MonoBehaviour
 
     public void NextStage()
     {
-        if ((int)_currentStage == 0)
+        switch ((int)_currentStage)
         {
-            //_mercuryContainer.SetActive(true);
-            Player_Teleport.Instance.Teleport();
-            //_introContainer.SetActive(false);
+            case 0: Player_Teleport.Instance.Teleport(); break;
+            case 4: _screen.SetActive(true); break;
+            case 5: _button.enabled = true; break;
+            case 6: Player_Teleport.Instance.Teleport(); break;
         }
 
-        if ((int)_currentStage == 6)
-        {
-            //_introContainer.SetActive(true);
-            Player_Teleport.Instance.Teleport();
-            //_mercuryContainer.SetActive(false);
-        }
-
-        if ((int)_currentStage < 7)
+        if ((int)_currentStage < 8)
         {
             _currentStage = (Stages)((int)++_currentStage);
         

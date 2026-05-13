@@ -157,7 +157,7 @@ public class QuizManager : MonoBehaviour
     {
         if (id == 0)
         {
-            Manager_Audio.Instance.PlayDirect(clipFinal);
+            Manager_Stages.Instance.NextStage();
             gameObject.SetActive(false);
         }
         else if (id == 1)

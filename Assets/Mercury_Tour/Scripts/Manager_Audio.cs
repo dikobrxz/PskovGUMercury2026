@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Manager_Audio : MonoBehaviour
@@ -20,7 +21,8 @@ public class Manager_Audio : MonoBehaviour
     
     public AudioClip _ojectSpeech;
 
-    private Coroutine _currentGroupRoutine;
+    private Queue<int> _stagesQueue = new Queue<int>();
+    private bool _isProcessingQueue = false;
 
     void Awake()
     {
@@ -37,10 +39,27 @@ public class Manager_Audio : MonoBehaviour
         int _currentStage = Manager_Stages.Instance.GetIndexCurrentStage();
         if (_currentStage >= 0 && _currentStage < _stageVoiceGroups.Length)
         {
-            if (_currentGroupRoutine != null) StopCoroutine(_currentGroupRoutine);
-            
-            _currentGroupRoutine = StartCoroutine(PlayGroupCoroutine(_stageVoiceGroups[_currentStage]));
+            _stagesQueue.Enqueue(_currentStage);
+
+            if (!_isProcessingQueue)
+            {
+                StartCoroutine(ProcessAudioQueueCoroutine());
+            }
         }
+    }
+
+    private IEnumerator ProcessAudioQueueCoroutine()
+    {
+        _isProcessingQueue = true;
+
+        while (_stagesQueue.Count > 0)
+        {
+            int nextStage = _stagesQueue.Dequeue();
+            
+            yield return StartCoroutine(PlayGroupCoroutine(_stageVoiceGroups[nextStage]));
+        }
+
+        _isProcessingQueue = false;
     }
 
     private IEnumerator PlayGroupCoroutine(VoiceGroup group)
@@ -63,16 +82,15 @@ public class Manager_Audio : MonoBehaviour
         _voiceSource.PlayOneShot(clip);
     }
 
-    public void OnObject()
-    {
-        Manager_Audio.Instance.PlayObjecVoice(_ojectSpeech);
-    }
+    // public void OnObject()
+    // {
+    //     Manager_Audio.Instance.PlayObjecVoice(_ojectSpeech);
+    // }
 
     public void PlayDirect(AudioClip clip)
     {
         if (clip == null) return;
-        if (_currentGroupRoutine != null) StopCoroutine(_currentGroupRoutine);
-        _voiceSource.clip = clip;
-        _voiceSource.Play();
+        
+        _voiceSource.PlayOneShot(clip);
     }
 }

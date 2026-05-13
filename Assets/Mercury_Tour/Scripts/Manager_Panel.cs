@@ -7,6 +7,7 @@ public class Manager_Panel : MonoBehaviour
 {
     [SerializeField] private Image _background;
     [SerializeField] private TMP_Text _display;
+    [SerializeField] private TextMeshProUGUI _screen;
     private Color _originalColor;
     public static string _correctAnswer;
     private int _maxLength;
@@ -65,6 +66,7 @@ public class Manager_Panel : MonoBehaviour
     {
         _correctAnswer = text;
         _maxLength = length;
+        _screen.text = text;
         Debug.Log("Код или координаты: " + text + "\nДлина:" + length);
     }
 
