@@ -51,8 +51,8 @@ public class Player_Teleport : MonoBehaviour
         else
         {    
             StartCoroutine(DoTeleport(_SpawnPointShip));
-            if(Manager_Stages.Instance._quiz != null)
-                Manager_Stages.Instance._quiz.SetActive(true);
+            // if(Manager_Stages.Instance._quiz != null)
+            //     Manager_Stages.Instance._quiz.SetActive(true);
         }
     }
     

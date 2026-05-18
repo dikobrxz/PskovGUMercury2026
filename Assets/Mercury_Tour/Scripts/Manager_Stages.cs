@@ -7,8 +7,8 @@ public class Manager_Stages : MonoBehaviour
 {
     [SerializeField] public GameObject _introContainer;
     [SerializeField] public GameObject _mercuryContainer;
-    [SerializeField] public GameObject _quiz;
-    [SerializeField] public GameObject _screen;
+    //[SerializeField] public GameObject _quiz;
+    //[SerializeField] public GameObject _screen;
     [SerializeField] public XRBaseInteractable _button;
 
     [Header("Триггеры этапов")]
@@ -35,9 +35,9 @@ public class Manager_Stages : MonoBehaviour
             proxy.OnPlayerEnter = () => {OnTriggerReached(index);};
         }
 
-        _quiz.SetActive(false);
+        //_quiz.SetActive(false);
         _button.enabled = false;
-        _screen.SetActive(false);
+        //_screen.SetActive(false);
     }
 
     public void ChangeStage(int _stageIndex)
@@ -58,7 +58,7 @@ public class Manager_Stages : MonoBehaviour
         switch ((int)_currentStage)
         {
             case 0: Player_Teleport.Instance.Teleport(); break;
-            case 4: _screen.SetActive(true); break;
+            //case 4: _screen.SetActive(true); break;
             case 5: _button.enabled = true; break;
             case 6: Player_Teleport.Instance.Teleport(); break;
         }

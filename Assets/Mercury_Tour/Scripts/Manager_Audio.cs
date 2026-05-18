@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class Manager_Audio : MonoBehaviour
 {
     public static Manager_Audio Instance;
+    public static Action<int> OnAudioFinished;
     public AudioSource _voiceSource;
 
     [Header("Настройка пауз")]
@@ -57,6 +59,8 @@ public class Manager_Audio : MonoBehaviour
             int nextStage = _stagesQueue.Dequeue();
             
             yield return StartCoroutine(PlayGroupCoroutine(_stageVoiceGroups[nextStage]));
+
+            OnAudioFinished?.Invoke(nextStage);
         }
 
         _isProcessingQueue = false;
